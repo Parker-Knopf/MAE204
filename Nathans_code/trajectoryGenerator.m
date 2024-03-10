@@ -6,7 +6,7 @@ Tse_g = Tsc_i*Tce_g; % grip config in s frame
 
 Tse_sf = Tsc_f*Tce_s; % final standoff in s frame
 
-Tse_g_f = Tsc_f*Tce_g;
+Tse_g_f = Tsc_f*Tce_g; %final e-e pos at in final pos. cube orientation
 
 T0 = [Tse_i, Tse_si, Tse_g, Tse_si, Tse_sf, Tse_g_f, Tse_sf]; %initial grip conditions
 T1 = [T0(:,5:end) Tse_i];
