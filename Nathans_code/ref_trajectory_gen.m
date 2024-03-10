@@ -14,7 +14,7 @@ Tsc_f = [0 1 0 0;
         -1 0 0 -1;
         0 0 1 0.025;
         0 0 0 1];
-w = pi/2;
+w = 3*pi/4;
 % The configuration of the end-effector relative to the cube while grasping
 Tce_g = [cos(w) 0 sin(w) 0;
         0 1 0 0;
