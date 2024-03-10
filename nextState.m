@@ -11,7 +11,7 @@ function x1 = nextState(x0, xDot, dt, xMax)
     end
 
     for i = 9:12
-        x1(i) = x0(i) + xDot(i-3);
+        x1(i) = x0(i) + xDot(i-3)*dt;
     end
 
     u = xDot(6:end)';
