@@ -1,6 +1,6 @@
 clear all; close all; clc;
 
-xDot = [1 1 1 1 1 -.2 .2 .2 -.2];
+xDot = [1 1 1 1 1 .2 -.2 .2 -.2];
 
 tEnd = 1;
 tStep = 100;

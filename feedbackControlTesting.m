@@ -36,7 +36,7 @@ T_sb = [cos(phi) -sin(phi) 0 x;
 
 X_0e = FKinBody(M, B, theta(4:8));
 
-X_se = T_sb * T_b0 * X_0e;
+X_se = T_sb * T_b0 * X_0e
 
 %% Testing
 

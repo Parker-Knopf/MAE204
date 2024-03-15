@@ -10,7 +10,6 @@ function configs = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k
     T1 = {T0{2:end}, T_se_i}; % Final Configs for every trajectory
 
     grip = [0 0 1 1 1 1 0 0 0]; % Final Gripper State at every trajectory
-%     t = [1 1 1 1 1 1 1 1 1]; % Time for each trajectory
 
     n = 0; % Precontruct Configs Length
     for i = 1:length(t)

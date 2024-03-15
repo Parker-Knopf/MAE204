@@ -1,5 +1,5 @@
 function q_k1 = odometry(u)
-    youBotConfigs
+    load("youBotConfigs.mat", 'r', 'F')
 
     v = (r/4) .* (F * u);
     omg = v(1);
