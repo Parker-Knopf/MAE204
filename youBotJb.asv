@@ -1,4 +1,4 @@
-function Jb = youBotJb(X, theta0)
+function Jb = youBotJb(X, M, Btheta0)
     youBotConfigs
 
     eomg = 0.0001;
@@ -18,7 +18,7 @@ function Jb = youBotJb(X, theta0)
             0 0 1 r;
             0 0 0 1];
      
-    T_0e = X \ T_0s;
+    T_0e = inv(T_0s) * X;
 
     Jbase = Adjoint(inv(T_0e)*inv(T_b0))*F6;
 
@@ -26,7 +26,6 @@ function Jb = youBotJb(X, theta0)
         theta0 = theta0';
     end
 
-    B = B(:, 4:8); % NEED TO FIX THIS
     [theta, null] = IKinBody(B, M, X, theta0(4:8), eomg, ev);
     Jb = [Jbase JacobianBody(B, theta)]
 end

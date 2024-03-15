@@ -1,4 +1,4 @@
-function [V, u, dThetas, X_err] = feedbackControl(T, T_d, T_di, kp, ki, dt, M, B, theta0)
+function [V, u, dThetas, X_err] = feedbackControl(T, T_d, T_di, kp, ki, dt, theta0)
 
     Xm_err = T \ T_d;
     X_step = T_d \ T_di;
@@ -13,7 +13,7 @@ function [V, u, dThetas, X_err] = feedbackControl(T, T_d, T_di, kp, ki, dt, M, B
 
     V = Adjoint(Xm_err) * Vd + k + p;
 
-    dThetas = pinv(youBotJb(T, M, B, theta0)) * V;
+    dThetas = pinv(youBotJb(T, theta0)) * V;
 
     u = dThetas(1:4);
     dThetas = dThetas(5:end);

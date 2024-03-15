@@ -1,7 +1,5 @@
-function q_k1 = odometry(u, w, l, r)
-    F = [-1/(l + w) 1/(l + w) 1/(l + w) -1/(l + w);
-         1 1 1 1;
-         -1 1 -1 1];
+function q_k1 = odometry(u)
+    youBotConfigs
 
     v = (r/4) .* (F * u);
     omg = v(1);

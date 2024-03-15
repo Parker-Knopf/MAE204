@@ -1,8 +1,8 @@
 clear all; close all; clc;
 
 %% Parameters
-load("configurations.m")
-load("kinematics.m")
+load("trajectories.m")
+load("youBotConfigs.m")
 
 kp = zeros(6);
 ki = zeros(6);
