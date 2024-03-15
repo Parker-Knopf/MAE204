@@ -23,7 +23,7 @@ state = zeros(length(X), 13);
 for i = 1:(length(X)-1)
     % IDK what X should be
     [V, u, dTheta, X_errs(i, :)] = feedbackControl(Xi, configToX(X(i, :)), configToX(X(i+1, :)), kp, ki, dt, theta0);
-    state(i, :) = [nextState(theta0, [dTheta', u'], dt, xMax)', X(i, end)];
+    state(i, :) = [nextState(theta0, [dTheta', u'], dt, xMax), X(i, end)];
     theta0 = state(i, 1:12)';
     Xi = updateYouBotFK(theta0);
 end

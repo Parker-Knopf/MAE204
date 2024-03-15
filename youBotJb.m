@@ -27,5 +27,6 @@ function Jb = youBotJb(X, theta0)
     end
 
     [theta, success] = IKinBody(B, M, X, theta0(4:8), eomg, ev);
+    success
     Jb = [Jbase JacobianBody(B, theta)];
 end
