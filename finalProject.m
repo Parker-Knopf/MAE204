@@ -15,13 +15,13 @@ xMax = 1000; % Change this later
 %% Trajectories
 
 t = [2.5 1 1 1 1 4 1 1 2.5];
-k = 2;
+k = 10;
 dt = 0.01 / k;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
 
-Xi = T_se_ai
-theta0 = [zeros(1,3), deg2rad(IKinBody(B, M, SpaceToArmFrame(Xi, zeros(1,3)), zeros(5,1), 0.0001, 0.0001))', zeros(1,4)]' % Initial Guess
-Xi = updateYouBotFK(theta0)
+Xi = T_se_ai;
+[theta, s] = IKinBody(B, M, SpaceToArmFrame(Xi, zeros(1,3)), [0, 1.38, -1, -.4, 0]', 0.00001, 0.00001);
+theta0 = [zeros(1,3), theta', zeros(1,4)]'; % Initial Guess
 X_errs = zeros(length(X), 6);
 state = zeros(length(X), 13);
 state(1, 1:12) = theta0';

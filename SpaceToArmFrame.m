@@ -10,5 +10,5 @@ function X_0e = SpaceToArmFrame(X_se, theta)
             0 0 1 z0;
             0 0 0 1];
 
-    X_0e = TransInv(T_b0) * TransInv(T_sb) * X_se
+    X_0e = TransInv(T_b0) * TransInv(T_sb) * X_se;
 end

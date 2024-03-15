@@ -1,6 +1,6 @@
 function T_se = updateYouBotFK(theta0)
     load("youBotConfigs.mat", 'B', 'M', 'z0', 'T_b0')
-
+ 
     phi = theta0(1);
     x = theta0(2);
     y = theta0(3);
