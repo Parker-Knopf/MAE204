@@ -24,9 +24,9 @@ B = [B1, B2, B3, B4, B5];
 
 
 %% Zero Config EE Transformation
-M = [1 0 0 x_0e+x_b0;
+M = [1 0 0 x_0e;
      0 1 0 0;
-     0 0 1 z0+z1+z2+z3+z4+z5;
+     0 0 1 z2+z3+z4+z5;
      0 0 0 1];
 
 %% YouBot Configs

@@ -9,11 +9,8 @@ function T_se = updateYouBotFK(theta0)
 
     T_sb = [cos(phi) -sin(phi) 0 x;
             sin(phi) cos(phi) 0 y;
-            0 0 1 r;
+            0 0 1 z0;
             0 0 0 1];
 
-    T_bs = inv(T_sb);
-
-%     T_se = T_e0 * inv(T_b0) * T_bs; 
-    T_se = T_e0 * T_bs \ T_b0;
+    T_se = T_sb * T_b0 * TransInv(T_e0);
 end

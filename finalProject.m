@@ -17,11 +17,10 @@ dt = k / 0.01;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
 
 Xi = T_se_ai;
-theta0 = zeros(12, 1); % Update an initial guess here
+theta0 = zeros(12, 1); % Initial Guess
 X_errs = zeros(length(X), 6);
 state = zeros(length(X), 13);
 for i = 1:(length(X)-1)
-    % IDK what X should be
     [V, u, dTheta, X_errs(i, :)] = feedbackControl(Xi, configToX(X(i, :)), configToX(X(i+1, :)), kp, ki, dt, theta0);
     state(i, :) = [nextState(theta0, [dTheta', u'], dt, xMax), X(i, end)];
     theta0 = state(i, 1:12)';

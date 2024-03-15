@@ -15,12 +15,12 @@ function Jb = youBotJb(X, theta0)
     
     T_sb = [cos(phi) -sin(phi) 0 x;
             sin(phi) cos(phi) 0 y;
-            0 0 1 r;
+            0 0 1 z0;
             0 0 0 1];
      
-    T_0e = X \ T_sb;
+    T_0e = TransInv(T_b0) * TransInv(T_sb) * X;
 
-    Jbase = Adjoint(inv(T_0e)*inv(T_b0))*F6;
+    Jbase = Adjoint(TransInv(T_0e)*TransInv(T_b0))*F6;
 
     if size(theta0, 2) > 1
         theta0 = theta0';
