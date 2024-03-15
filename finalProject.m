@@ -2,7 +2,7 @@ clear all; close all; clc;
 
 %% Parameters
 trajectories
-youBotConfigs
+load("youBotConfigs.mat")
 
 kp = zeros(6);
 ki = zeros(6);

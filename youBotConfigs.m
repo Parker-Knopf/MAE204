@@ -39,3 +39,5 @@ T_b0 = [1 0 0 x_b0;
         0 1 0 0;
         0 0 1 z1;
         0 0 0 1];
+
+save youBotConfigs.mat z0 l w r B M F T_b0
