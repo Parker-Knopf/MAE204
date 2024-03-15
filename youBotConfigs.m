@@ -29,6 +29,11 @@ M = [1 0 0 x_0e;
      0 0 1 z2+z3+z4+z5;
      0 0 0 1];
 
+T_sb = [1 0 0 0;
+        0 1 0 0;
+        0 0 1 z0;
+        0 0 0 1];
+
 %% YouBot Configs
 
 F = [-1/(l + w) 1/(l + w) 1/(l + w) -1/(l + w);
@@ -40,4 +45,4 @@ T_b0 = [1 0 0 x_b0;
         0 0 1 z1;
         0 0 0 1];
 
-save youBotConfigs.mat z0 l w r B M F T_b0
+save youBotConfigs.mat z0 l w r B M F T_b0 T_sb

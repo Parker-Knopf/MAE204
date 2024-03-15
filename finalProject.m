@@ -7,17 +7,21 @@ load("youBotConfigs.mat")
 kp = zeros(6);
 ki = zeros(6);
 
+% kp = eye(6);
+% ki = eye(6);
+
 xMax = 1000; % Change this later
 
 %% Trajectories
 
 t = [2.5 1 1 1 1 4 1 1 2.5];
-k = 1;
+k = 2;
 dt = 0.01 / k;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
 
-Xi = T_se_ai;
-theta0 = [zeros(1,3), deg2rad(IKinBody(B, M, Xi, zeros(5, 1), 0.0001, 0.0001))', zeros(1,4)]'; % Initial Guess
+Xi = T_se_ai
+theta0 = [zeros(1,3), deg2rad(IKinBody(B, M, SpaceToArmFrame(Xi, zeros(1,3)), zeros(5,1), 0.0001, 0.0001))', zeros(1,4)]' % Initial Guess
+Xi = updateYouBotFK(theta0)
 X_errs = zeros(length(X), 6);
 state = zeros(length(X), 13);
 state(1, 1:12) = theta0';
