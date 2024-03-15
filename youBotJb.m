@@ -1,8 +1,8 @@
 function Jb = youBotJb(X, theta0)
     youBotConfigs
 
-    eomg = 0.0001;
-    ev = 0.0001;
+    eomg = 0.01;
+    ev = 0.01;
     
     phi = theta0(1);
     x = theta0(2);
@@ -27,6 +27,7 @@ function Jb = youBotJb(X, theta0)
     end
 
     [theta, success] = IKinBody(B, M, X, theta0(4:8), eomg, ev);
+    theta
     success
-    Jb = [Jbase JacobianBody(B, theta)];
+    Jb = [Jbase JacobianBody(B, theta)]
 end
