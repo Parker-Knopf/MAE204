@@ -51,4 +51,4 @@ X = FKinBody(M, B, theta(4:8));
 
 theta0 = theta;
 
-[V, u, theta] = feedbackControl(X, X_d, X_di, kp, ki, dt, theta0)
+[V, u, theta, X_err] = feedbackControl(X, X_d, X_di, kp, ki, dt, theta0)

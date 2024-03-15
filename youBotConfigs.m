@@ -19,11 +19,8 @@ B4 = [0 -1 0 -z5 0 0]';
 B3 = [0 -1 0 -(z5+z4) 0 0]';
 B2 = [0 -1 0 -(z5+z4+z3) 0 0]';
 B1 = [0 0 1 0 x_0e 0]';
-By = [0 0 0 0 1 0]';
-Bx = [0 0 0 1 0 0]';
-Bphi = [0 0 1 0 x_0e+x_b0 0]';
 
-B = [Bphi, Bx, By, B1, B2, B3, B4, B5];
+B = [B1, B2, B3, B4, B5];
 
 
 %% Zero Config EE Transformation

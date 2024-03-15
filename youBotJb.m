@@ -13,12 +13,12 @@ function Jb = youBotJb(X, theta0)
         F.*(r/4);
         zeros(1,4)];
     
-    T_0s = [cos(phi) -sin(phi) 0 x;
+    T_sb = [cos(phi) -sin(phi) 0 x;
             sin(phi) cos(phi) 0 y;
             0 0 1 r;
             0 0 0 1];
      
-    T_0e = X \ T_0s;
+    T_0e = X \ T_sb;
 
     Jbase = Adjoint(inv(T_0e)*inv(T_b0))*F6;
 
@@ -26,7 +26,6 @@ function Jb = youBotJb(X, theta0)
         theta0 = theta0';
     end
 
-    B = B(:, 4:8); % NEED TO FIX THIS
     [theta, null] = IKinBody(B, M, X, theta0(4:8), eomg, ev);
-    Jb = [Jbase JacobianBody(B, theta)]
+    Jb = [Jbase JacobianBody(B, theta)];
 end

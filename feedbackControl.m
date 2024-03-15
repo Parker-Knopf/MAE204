@@ -17,4 +17,5 @@ function [V, u, dThetas, X_err] = feedbackControl(T, T_d, T_di, kp, ki, dt, thet
 
     u = dThetas(1:4);
     dThetas = dThetas(5:end);
+    X_err = X_err';
 end

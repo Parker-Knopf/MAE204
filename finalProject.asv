@@ -12,7 +12,7 @@ xMax = 1000; % Change this later
 %% Trajectories
 
 t = [1 1 1 1 1 1 1 1 1];
-k = 3;
+k = 10;
 dt = k / 0.01;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
 
@@ -22,16 +22,17 @@ X_errs = zeros(length(X), 6);
 state = zeros(length(X), 13);
 for i = 1:(length(X)-1)
     % IDK what X should be
-    [V, u, dTheta, X_errs(i, :)] = feedbackControl(Xi, configToX(X(i, :)), configToX(X(i+1, :)), kp, ki, dt, theta0);
-    state(i, :) = [nextState(theta0, [dTheta', u'], dt, xMax)', X(i, end)];
+    [V, u, dTheta, X_errs(i, :)] = feedbackControl(Xi, configToX(X(:, i)), configToX(X(:, i+1)), kp, ki, dt, theta0);
+    
+    
+    state(i, :) = [nextState(theta0, [dTheta, u'], dt, xMax), X(i, end)];
     theta0 = state(i, 1:12)';
     Xi = updateYouBotFK(theta0);
 end
 
-kn = 1;
-X_errs = X_errs(1:kn:end, :);
+kn = 0;
+X_errs = X_err(:, 1:kn:end);
 configs = X(1:kn:end, :);
 
-csvwrite("finalProjectStates.csv", state)
-csvwrite("finalProjectErrors.csv", X_errs)
-csvwrite("finalProjectConfigs.csv", configs)
+csvwrite("finalProjectStates_PK.csv", state)
+csvwrite("finalProjectErrors_PK.csv", X_errs)
