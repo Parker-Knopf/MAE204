@@ -4,18 +4,17 @@ clear all; close all; clc;
 trajectories
 load("youBotConfigs.mat")
 
-kp = zeros(6);
-ki = zeros(6);
+% kp = zeros(6);
+% ki = zeros(6);
 
-% kp = [eye(3).*1 zeros(3);
-%       zeros(3) eye(3).*1];
-% ki = eye(6).*10;
+kp = eye(6).*2;
+ki = eye(6).*0;
 
-xMax = 200; % Change this later
+xMax = 50; % Change this later
 
 %% Trajectories
 
-t = [3 2 0.5 1 2.5 2 1 1 2.5];
+t = [4 2 0.5 1 2 2 1 1 1.5];
 k = 4;
 dt = 0.01 / k;
 
@@ -25,11 +24,11 @@ dt = 0.01 / k;
 % forward kinematics
 % use this FK as starting pos and start of trajectory instead of working
 % backwards from a transformation matrix
-theta0 = [0 0 0 0 -pi/4 pi/4 -pi/2 0 0 0 0 0]';
+theta0 = [0 0 0 pi/6 -pi/6 pi/3 -pi/2 pi/2 0 0 0 0]';
 T0e = FKinBody(M,B,theta0(4:8));
 T_se = T_sb * T_b0 * T0e;
 
-X = trajectoryGenerator(T_se, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
+X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
 
 Xi = T_se;
 % [theta, s] = IKinBody(B, M, SpaceToArmFrame(Xi, zeros(1,3)), [0, 1.38, -1, -.4, 0]', 0.00001, 0.00001);
