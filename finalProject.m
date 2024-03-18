@@ -18,8 +18,6 @@ t = [4 2 0.5 1 2 2 1 1 1.5];
 k = 4;
 dt = 0.01 / k;
 
-
-
 % control pos, joint angles and wheel angles 
 % forward kinematics
 % use this FK as starting pos and start of trajectory instead of working
@@ -28,7 +26,10 @@ theta0 = [0 0 0 pi/6 -pi/6 pi/3 -pi/2 pi/2 0 0 0 0]';
 T0e = FKinBody(M,B,theta0(4:8));
 T_se = T_sb * T_b0 * T0e;
 
+t = [2.5 1 1 1 1 4 1 1 2.5];
+k = 4;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
+dt = sum(t) / (length(X)-1);
 
 Xi = T_se;
 % [theta, s] = IKinBody(B, M, SpaceToArmFrame(Xi, zeros(1,3)), [0, 1.38, -1, -.4, 0]', 0.00001, 0.00001);

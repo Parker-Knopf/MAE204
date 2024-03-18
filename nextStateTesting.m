@@ -1,11 +1,11 @@
 clear all; close all; clc;
 
-xDot = [1 1 1 1 1 .2 -.2 .2 -.2];
+xDot = [pi/4 pi/4 pi/4 pi/4 pi/4 -1 1 1 -1];
 
 tEnd = 1;
-tStep = 100;
-dt = tEnd/tStep;
-xMax = 2;
+tStep = 2;
+dt = tEnd/(tStep-1);
+xMax = 200;
 
 x = zeros(tStep, 13);
 for i = 2:tStep
