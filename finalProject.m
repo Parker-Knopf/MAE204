@@ -15,9 +15,9 @@ xMax = 1000; % Change this later
 %% Trajectories
 
 t = [2.5 1 1 1 1 4 1 1 2.5];
-k = 10;
-dt = 0.01 / k;
+k = 4;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
+dt = sum(t) / (length(X)-1);
 
 Xi = T_se_ai;
 [theta, s] = IKinBody(B, M, SpaceToArmFrame(Xi, zeros(1,3)), [0, 1.38, -1, -.4, 0]', 0.00001, 0.00001);
