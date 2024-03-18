@@ -1,5 +1,5 @@
 function x1 = nextState(x0, xDot, dt, xMax)
-%     xDot = floorVal(xDot, xMax);
+%     xDot = floorVal(xDot, xMax)
 
     x1 = x0';
     
@@ -14,7 +14,8 @@ function x1 = nextState(x0, xDot, dt, xMax)
     end
 
     u = xDot(6:end)'*dt;
-    q = odometry(u);
+    phi = x1(1);
+    q = odometry(u,phi);
 
     % Chassis 
     for i = 1:3
