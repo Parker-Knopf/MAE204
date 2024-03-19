@@ -32,4 +32,6 @@ function x1 = nextState(x0, xDot, dt, xMax)
     for i = 1:3
         x1(i) = x0(i) + q(i);
     end
+
+    x1 = jointLim(x1);
 end

@@ -26,7 +26,7 @@ elseif strcmp(task, "best")
 
 elseif strcmp(task, "overshoot")
     kp = eye(6).*2;
-    ki = eye(6).*100;
+    ki = eye(6).*2;
     
     trajectories
 
@@ -63,7 +63,7 @@ end
 %% Trajectories
 
 t = [2.5 1 1 1 4 1 1 1 2.5]; % Trajectory Times
-k = 4;
+k = 2;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
 dt = sum(t) / (length(X)-1); % Step Time
 
@@ -74,10 +74,11 @@ Xi = T_se_0;
 X_errs = zeros(length(X), 6);
 state = zeros(length(X), 13);
 state(1, 1:12) = theta0';
+kiTotal = 0;
 
 % Main Simulation Loop
 for i = 1:(length(X)-1)
-    [V, u, dTheta, X_errs(i, :)] = feedbackControl(Xi, configToX(X(i, :)), configToX(X(i+1, :)), kp, ki, dt, theta0);
+    [V, u, dTheta, X_errs(i, :), kiTotal] = feedbackControl(Xi, configToX(X(i, :)), configToX(X(i+1, :)), kp, ki, kiTotal, dt, theta0);
     state(i+1, :) = [nextState(theta0, [dTheta', u'], dt, xMax), X(i, end)];
     theta0 = state(i+1, 1:12)';
     Xi = updateYouBotFK(theta0);

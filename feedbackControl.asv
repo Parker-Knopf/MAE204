@@ -1,4 +1,4 @@
-function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTotal, dt, theta0)
+function [V, u, dThetas, X_err] = feedbackControl(T, T_d, T_di, kp, ki, kiTotal, dt, theta0)
 % Function: Create Error Twists, Joint Velocities and Error Cals based on
 % trajecotry frame i, and i+1
 %
@@ -15,7 +15,6 @@ function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTot
 % - u: (list[float]) Wheel Velocities
 % - dThetas: (list[float]) Arm Joint Velocities
 % - X_err: (list[float]) Error Magnitudes
-% - i: Total ki after current time step
 
     Xm_err = T \ T_d;
     X_step = T_d \ T_di;
@@ -26,7 +25,10 @@ function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTot
     Vd = se3ToVec(Vd);
 
     p = kp*X_err;
-    i = kiTotal + ki*X_err*dt;
+    pi = ki*X_err*dt;
+    p = ki
+    p = p + pi;
+    csvwrite("ki.csv", p)
 
     V = Adjoint(Xm_err) * Vd + p + i;
 
