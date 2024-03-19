@@ -1,5 +1,5 @@
 function x1 = nextState(x0, xDot, dt, xMax)
-%     xDot = floorVal(xDot, xMax)
+    xDot = floorVal(xDot, xMax);
 
     x1 = x0';
     
