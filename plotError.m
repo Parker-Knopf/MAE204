@@ -27,4 +27,6 @@ function plotError(varargin)
     title("Trajectory Twist Errors")
     xlabel("time")
     ylabel("Twist Error Mag")
+
+    saveas(gcf, "Error.png");
 end

@@ -8,7 +8,7 @@ xMax = 50; % Max Joint Vel's
 %% Task
 
 %%% User input here %%%
-task = "best"; % Task State
+task = "newTask"; % Task State
 onTraj = false; % True: Start on Trajectory, False: Start off Trajectory
 %%% User input here %%%
 
@@ -31,7 +31,7 @@ elseif strcmp(task, "overshoot")
     trajectories
 
 elseif strcmp(task, "newTask")
-    kp = eye(6).*3;
+    kp = eye(6).*2;
     ki = eye(6).*0;
     
     trajectoriesNewTask
@@ -54,7 +54,7 @@ if (onTraj)
 else
     if (~strcmp(task, "newTask"))
         % Define Starting Location
-        theta0 = [0 .2 .2 pi/3 -pi/3 pi/2 -pi/3 0 0 0 0 0]';
+        theta0 = [pi/3 .1 .1 pi/3 -pi/3 pi/2 -pi/3 0 0 0 0 0]';
     end
     T_0e = FKinBody(M, B, theta0(4:8));
     T_se_0 = makeT_sb(theta0) * T_b0 * T_0e;
@@ -63,7 +63,7 @@ end
 %% Trajectories
 
 t = [2.5 1 1 1 4 1 1 1 2.5]; % Trajectory Times
-k = 2;
+k = 4;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
 dt = sum(t) / (length(X)-1); % Step Time
 

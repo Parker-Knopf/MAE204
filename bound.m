@@ -1,4 +1,4 @@
-function x = bound(x, l, u)
+function [x, state] = bound(x, l, u)
 % Function: Bound value based on given bounds [l, u]
 %
 % Inputs:
@@ -8,10 +8,14 @@ function x = bound(x, l, u)
 %
 % Outputs:
 % - x: (float) Bounded value
+% - state: (logical) False: Limited by bound, True: Within bound
 
+    state = false;
     if (x < l)
         x = l;
     elseif (x > u)
         x = u;
+    else
+        state = true;
     end
 end

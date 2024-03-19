@@ -1,9 +1,11 @@
-function Jb = youBotJb(X, theta0)
+function Jb = youBotJb(X, theta0, avoid)
 % Function: Create the Jacobian given current joint angles
 %
 % Inputs:
 % - X: (se(3)) Current transfromation matrix of youBot position
 % - theta0: (list[floats]) Current Joint angles
+% - avoid: (list[logical]) Columns of the Jacobian to ignore if joint
+% limits reached at that joint
 %
 % Outputs:
 % - Jb: (list[list[float]]) Jacobian
@@ -25,5 +27,8 @@ function Jb = youBotJb(X, theta0)
         theta0 = theta0';
     end
 
-    Jb = [Jbase JacobianBody(B, theta0(4:8))];
+    Jarm = JacobianBody(B, theta0(4:8));
+    Jarm(:, avoid) = 0;
+
+    Jb = [Jbase Jarm];
 end

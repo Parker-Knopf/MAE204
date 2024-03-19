@@ -1,4 +1,4 @@
-function x1 = nextState(x0, xDot, dt, xMax)
+function [x1, sb] = nextState(x0, xDot, dt, xMax)
 % Function: Calculates the next state (joint angles) of youBot
 %
 % Inputs:
@@ -9,8 +9,9 @@ function x1 = nextState(x0, xDot, dt, xMax)
 %
 % Outputs:
 % - x1: (list[float]) Next Step Joint Values given in state protocal
+% - sb: (list[logical]) Logical array of arm joints hitting limits or not
 
-    xDot = floorVal(xDot, xMax);
+    xDot = bound(xDot, -xMax, xMax);
 
     x1 = x0';
     
@@ -33,5 +34,5 @@ function x1 = nextState(x0, xDot, dt, xMax)
         x1(i) = x0(i) + q(i);
     end
 
-    x1 = jointLim(x1);
+    [x1, sb] = jointLim(x1);
 end

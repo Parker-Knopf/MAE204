@@ -1,4 +1,4 @@
-function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTotal, dt, theta0)
+function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTotal, dt, sb, theta0)
 % Function: Create Error Twists, Joint Velocities and Error Cals based on
 % trajecotry frame i, and i+1
 %
@@ -8,6 +8,8 @@ function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTot
 % and Integral Control
 % - kiTotal: (list[floats]) Total ki values from all previous time steps
 % - dt: (float) Time step in s
+% - sb: (list[logical]) List of boolean values for arm joints to keep
+% movement due to joint limits being reached
 % - theta0: (list[floats]) Current Joint angles
 %
 % Outputs:
@@ -30,7 +32,7 @@ function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTot
 
     V = Adjoint(Xm_err) * Vd + p + i;
 
-    dThetas = pinv(youBotJb(T, theta0)) * V;
+    dThetas = pinv(youBotJb(T, theta0, ~sb), 1e-4) * V;
 
     u = dThetas(1:4);
     dThetas = dThetas(5:end);
