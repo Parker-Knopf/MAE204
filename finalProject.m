@@ -1,32 +1,63 @@
 clear all; close all; clc;
 
 %% Parameters
-trajectories
 load("youBotConfigs.mat") % Static Variables related to youBot
-
-control = false; % True: Use PI Control, False: Do not use PI Control
-onTraj = true; % True: Start on Trajectory, False: Start off Trajectory
-
-if (control)
-    kp = eye(6).*2;
-    ki = eye(6).*0;
-else
-    kp = zeros(6);
-    ki = zeros(6);
-end
 
 xMax = 50; % Max Joint Vel's
 
-% Define Starting Location
-theta0 = [0 0 0 pi/6 -pi/6 pi/3 -pi/2 pi/2 0 0 0 0]';
+%% Task
+
+%%% User input here %%%
+task = "newTask"; % Task State
+onTraj = false; % True: Start on Trajectory, False: Start off Trajectory
+%%% User input here %%%
+
+if strcmp(task, "noControl")
+    kp = zeros(6);
+    ki = zeros(6);
+
+    trajectories
+
+elseif strcmp(task, "best")
+    kp = eye(6).*2;
+    ki = eye(6).*0;
+    
+    trajectories
+
+elseif strcmp(task, "overshoot")
+    kp = eye(6).*2;
+    ki = eye(6).*100;
+    
+    trajectories
+
+elseif strcmp(task, "newTask")
+    kp = eye(6).*2;
+    ki = eye(6).*0;
+    
+    trajectoriesNewTask
+    if (~onTraj)
+        % Define New Starting Location
+        theta0 = [0 0 0 pi/6 -pi/6 pi/3 -pi/2 pi/2 0 0 0 0]';
+    end
+
+else
+    kp = zeros(6);
+    ki = zeros(6);
+    
+    trajectories
+end
 
 %% Starting Location
 
 if (onTraj)
+    T_se_0 = T_se_i;
+else
+    if (~strcmp(task, "newTask"))
+        % Define Starting Location
+        theta0 = [0 0 0 pi/3 -pi/3 pi/2 -pi/3 0 0 0 0 0]';
+    end
     T_0e = FKinBody(M, B, theta0(4:8));
     T_se_0 = makeT_sb(theta0) * T_b0 * T_0e;
-else
-    T_se_0 = T_se_i;
 end
 
 %% Trajectories
