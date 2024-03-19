@@ -1,4 +1,13 @@
 function Jb = youBotJb(X, theta0)
+% Function: Create the Jacobian given current joint angles
+%
+% Inputs:
+% - X: (se(3)) Current transfromation matrix of youBot position
+% - theta0: (list[floats]) Current Joint angles
+%
+% Outputs:
+% - Jb: (list[list[float]]) Jacobian
+
     load("youBotConfigs.mat", 'B', 'F', 'r', 'T_b0')
 
     F6 = [zeros(1,4);

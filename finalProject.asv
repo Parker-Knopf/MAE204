@@ -4,38 +4,42 @@ clear all; close all; clc;
 trajectories
 load("youBotConfigs.mat") % Static Variables related to youBot
 
-control = 1; % 1: Use PI Control, 0: Do not use PI Control
+control = 0; % 1: Use PI Control, 0: Do not use PI Control
+onTraj = 1; % 1: Start on Trajectory, 0: Start off Trajectory
 
-if control
-    % kp = eye(6).*2;
-%   ki = eye(6).*0;
-kp = zeros(6);
-ki = zeros(6);
+if (control)
+    kp = eye(6).*2;
+    ki = eye(6).*0;
+else
+    kp = zeros(6);
+    ki = zeros(6);
+end
 
-% kp = eye(6).*2;
-% ki = eye(6).*0;
-
-xMax = 50;
+xMax = 50; % Max Joint Vel's
 
 %% Trajectories
 
 % Define Starting Location
 theta0 = [0 0 0 pi/6 -pi/6 pi/3 -pi/2 pi/2 0 0 0 0]';
 T_0e = FKinBody(M, B, theta0(4:8));
+T_se_0 = makeT_sb(theta0) * T_b0 * T_0e;
 
-T_se_i = makeT_sb(theta0) * T_b0 * T_0e;
+%% Trajectories
 
-t = [2.5 1 1 1 4 1 1 1 2.5];
+t = [2.5 1 1 1 4 1 1 1 2.5]; % Trajectory Times
 k = 4;
 X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
-dt = sum(t) / (length(X)-1);
-
+dt = sum(t) / (length(X)-1); % Step Time
 
 %% Simulation
-Xi = T_se_i;
+
+% Data Variable Inits
+Xi = T_se_0;
 X_errs = zeros(length(X), 6);
 state = zeros(length(X), 13);
 state(1, 1:12) = theta0';
+
+% Main Simulation Loop
 for i = 1:(length(X)-1)
     [V, u, dTheta, X_errs(i, :)] = feedbackControl(Xi, configToX(X(i, :)), configToX(X(i+1, :)), kp, ki, dt, theta0);
     state(i+1, :) = [nextState(theta0, [dTheta', u'], dt, xMax), X(i, end)];
@@ -43,6 +47,7 @@ for i = 1:(length(X)-1)
     Xi = updateYouBotFK(theta0);
 end
 
+% k^th data elements
 X_errs = X_errs(1:k:end, :);
 configs = X(1:k:end, :);
 

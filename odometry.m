@@ -1,4 +1,13 @@
-function q_k1 = odometry(u,phi0)
+function q_k1 = odometry(u, phi0)
+% Function: Calculate change in wheel angle given wheel velocities
+%
+% Inputs:
+% - u: (list[float]) Wheel Velocities
+% - phi0: (float) Current chassis heading
+%
+% Outputs:
+% - q_k1: (list[float]) Change in Wheel Angle
+
     load("youBotConfigs.mat", 'r', 'F')
 
     v = (r/4) .* (F * u);

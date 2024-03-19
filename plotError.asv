@@ -5,7 +5,7 @@ function plotError(varargin)
 % - varargin: (list[list[float]]) Data given in state protocal
 %
 % Outputs:
-% - Figure: (Plot)
+% - NONE
 
     if nargin == 1
         data = varargin{1};

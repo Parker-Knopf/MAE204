@@ -1,19 +1,10 @@
 grab = 0.025;
 stand = 0.15;
 
-% T_se_i = [1 0 0 0;
-%           0 1 0 0;
-%           0 0 1 .6;
-%           0 0 0 1];
-% 
-% a = pi/4;
-% 
-% T_se_ai = T_se_i;
-% 
-% % T_se_ai = [cos(a) 0 -sin(a) 0.2;
-% %           0 1 0 0.3;
-% %           sin(a) 0 cos(a) .2;
-% %           0 0 0 1];;
+load("youBotConfigs.mat", "M", "B", "T_b0")
+thetaI = [0 0 0 pi/6 -pi/6 pi/3 -pi/2 pi/2 0 0 0 0]';
+T_0e = FKinBody(M, B, thetaI(4:8));
+T_se_i = makeT_sb(thetaI) * T_b0 * T_0e;
 
 T_sc_i = [1 0 0 1;
           0 1 0 0;

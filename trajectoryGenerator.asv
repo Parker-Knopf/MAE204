@@ -6,10 +6,9 @@ function configs = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k
 % - T*: (se(3)) Configurations for start, cube initial, cube final, gripper
 % grip, and gripper standoff
 % - k: (float) Gain to the number of frames to be made per second
-% - t: (list[float]) List of time values alloted for every trajectory
+
 %
 % Outputs:
-% - configs: (list[list[float]]) List of state protocals for the youBot
 
     T_se_ci_s  = T_sc_i * T_ce_s; % Standoff cube initial
     T_se_cf_s  = T_sc_f * T_ce_s; % Standoff cube final

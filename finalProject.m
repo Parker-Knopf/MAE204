@@ -4,7 +4,8 @@ clear all; close all; clc;
 trajectories
 load("youBotConfigs.mat") % Static Variables related to youBot
 
-control = 0; % 1: Use PI Control, 0: Do not use PI Control
+control = false; % True: Use PI Control, False: Do not use PI Control
+onTraj = true; % True: Start on Trajectory, False: Start off Trajectory
 
 if (control)
     kp = eye(6).*2;
@@ -16,13 +17,19 @@ end
 
 xMax = 50; % Max Joint Vel's
 
-%% Trajectories
-
 % Define Starting Location
 theta0 = [0 0 0 pi/6 -pi/6 pi/3 -pi/2 pi/2 0 0 0 0]';
-T_0e = FKinBody(M, B, theta0(4:8));
 
-T_se_i = makeT_sb(theta0) * T_b0 * T_0e;
+%% Starting Location
+
+if (onTraj)
+    T_0e = FKinBody(M, B, theta0(4:8));
+    T_se_0 = makeT_sb(theta0) * T_b0 * T_0e;
+else
+    T_se_0 = T_se_i;
+end
+
+%% Trajectories
 
 t = [2.5 1 1 1 4 1 1 1 2.5]; % Trajectory Times
 k = 4;
@@ -32,7 +39,7 @@ dt = sum(t) / (length(X)-1); % Step Time
 %% Simulation
 
 % Data Variable Inits
-Xi = T_se_i;
+Xi = T_se_0;
 X_errs = zeros(length(X), 6);
 state = zeros(length(X), 13);
 state(1, 1:12) = theta0';
