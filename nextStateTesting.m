@@ -8,7 +8,7 @@ dt = tEnd/(tStep-1);
 xMax = 200;
 
 x = zeros(tStep, 13);
-for i = 2:tStep
+for i = 2:tStep %updating state for each time step
     x(i, 1:12) = nextState(x(i-1, 1:12), xDot, dt, xMax);
 end
 

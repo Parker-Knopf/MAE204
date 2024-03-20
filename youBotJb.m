@@ -17,18 +17,18 @@ function Jb = youBotJb(X, theta0, avoid)
         F.*(r/4);
         zeros(1,4)];
     
-    T_sb = makeT_sb(theta0);
+    T_sb = makeT_sb(theta0); %updated T_sb with current state
      
-    T_0e = TransInv(T_b0) * TransInv(T_sb) * X;
+    T_0e = TransInv(T_b0) * TransInv(T_sb) * X; %updated ee config in 0 frame
 
-    Jbase = Adjoint(TransInv(T_0e)*TransInv(T_b0))*F6;
+    Jbase = Adjoint(TransInv(T_0e)*TransInv(T_b0))*F6; %jacobian of mobile base
 
     if size(theta0, 2) > 1
         theta0 = theta0';
     end
 
-    Jarm = JacobianBody(B, theta0(4:8));
+    Jarm = JacobianBody(B, theta0(4:8)); %jacobian of robotic arm
     Jarm(:, avoid) = 0;
 
-    Jb = [Jbase Jarm];
+    Jb = [Jbase Jarm]; %body jacobian of robot arm and chasis
 end

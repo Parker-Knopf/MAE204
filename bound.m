@@ -3,7 +3,7 @@ function [x, state] = bound(x, l, u)
 %
 % Inputs:
 % - x: (float) value to bound
-% - l: (float) lowwer bound
+% - l: (float) lower bound
 % - u: (float) upper bound
 %
 % Outputs:
@@ -11,11 +11,11 @@ function [x, state] = bound(x, l, u)
 % - state: (logical) False: Limited by bound, True: Within bound
 
     state = false;
-    if (x < l)
+    if (x < l) % compares x value to lower limit, if less redefines x
         x = l;
-    elseif (x > u)
+    elseif (x > u) % compares x value to upper limit, if greater redifines x
         x = u;
-    else
+    else %if x within limits, returns true
         state = true;
     end
 end

@@ -22,17 +22,17 @@ function [V, u, dThetas, X_err, i] = feedbackControl(T, T_d, T_di, kp, ki, kiTot
     Xm_err = T \ T_d;
     X_step = T_d \ T_di;
 
-    X_err = se3ToVec(MatrixLog6(Xm_err));
+    X_err = se3ToVec(MatrixLog6(Xm_err)); %current error twist
 
     Vd = (1/dt) * MatrixLog6(X_step);
-    Vd = se3ToVec(Vd);
+    Vd = se3ToVec(Vd); 
 
-    p = kp*X_err;
-    i = kiTotal + ki*X_err*dt;
+    p = kp*X_err; %proportional gain timmes error
+    i = kiTotal + ki*X_err*dt;%intergal gain accumulated ofer trajectory
 
     V = Adjoint(Xm_err) * Vd + p + i;
 
-    dThetas = pinv(youBotJb(T, theta0, ~sb), 1e-4) * V;
+    dThetas = pinv(youBotJb(T, theta0, ~sb), 1e-4) * V; %updated arm joint velocities after calculating new jacobian
 
     u = dThetas(1:4);
     dThetas = dThetas(5:end);
