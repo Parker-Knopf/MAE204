@@ -8,29 +8,29 @@ xMax = 50; % Max Joint Vel's
 %% Task
 
 %%% User input here %%%
-task = "best"; % Task State
+task = "overshoot"; % Task State
 onTraj = false; % True: Start on Trajectory, False: Start off Trajectory
 %%% User input here %%%
 
-if strcmp(task, "noControl")
+if strcmp(task, "noControl") %no control for testing feed forward. Recommend setting onTraj = true
     kp = zeros(6);
     ki = zeros(6);
 
     trajectories
 
-elseif strcmp(task, "best")
+elseif strcmp(task, "best") %best error twist with PI control and Feedforward
     kp = eye(6).*2;
     ki = eye(6).*0;
     
     trajectories
 
-elseif strcmp(task, "overshoot")
+elseif strcmp(task, "overshoot") %forced overshoot to demonstrate controllers working
     kp = eye(6).*2;
     ki = eye(6).*2;
     
     trajectories
 
-elseif strcmp(task, "newTask")
+elseif strcmp(task, "newTask") %new block configuration 
     kp = eye(6).*3;
     ki = eye(6).*0;
     
@@ -49,10 +49,10 @@ end
 
 %% Starting Location
 
-if (onTraj)
+if (onTraj) %sets trajectory start to starting pos of robot
     T_se_0 = T_se_i;
 else
-    if (~strcmp(task, "newTask"))
+    if (~strcmp(task, "newTask")) 
         % Define Starting Location
         theta0 = [0 .2 .2 pi/3 -pi/3 pi/2 -pi/3 0 0 0 0 0]';
     end
@@ -64,7 +64,7 @@ end
 
 t = [2.5 1 1 1 4 1 1 1 2.5]; % Trajectory Times
 k = 2;
-X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t);
+X = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k, t); % generated trajectories for specific case determined above
 dt = sum(t) / (length(X)-1); % Step Time
 
 %% Simulation
