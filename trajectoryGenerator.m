@@ -29,7 +29,7 @@ function configs = trajectoryGenerator(T_se_i, T_sc_i, T_sc_f, T_ce_g, T_ce_s, k
 
     configs = zeros(n, 13);
     index = 1;
-    for i = 1:length(T0)
+    for i = 1:length(T0) %indexing configuraions in format for csv file for each trajectory
         N = t(i)*k/0.01;
         configs(index:index+N-1, :) = CellTtoConfig(ScrewTrajectory(T0{i}, T1{i}, t(i), N, 5), grip(i));
         index = index+N;

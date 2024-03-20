@@ -13,5 +13,5 @@ function T_se = updateYouBotFK(theta0)
 
     T_sb = makeT_sb(theta0);
 
-    T_se = T_sb * T_b0 * T_0e;
+    T_se = T_sb * T_b0 * T_0e; %ee config in s frame with updated T_sb
 end

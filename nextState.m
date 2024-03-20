@@ -16,12 +16,12 @@ function [x1, sb] = nextState(x0, xDot, dt, xMax)
     x1 = x0';
     
     % Joint Angles
-    for i = 4:8
+    for i = 4:8 %updates joint angles using euler approximation
         x1(i) = x0(i) + xDot(i-3)*dt;
     end
 
     % Wheel Angles
-    for i = 9:12
+    for i = 9:12 %updates wheel angles using euler approximation
         x1(i) = x0(i) + xDot(i-3)*dt;
     end
 
@@ -30,7 +30,7 @@ function [x1, sb] = nextState(x0, xDot, dt, xMax)
     q = odometry(u, phi);
 
     % Chassis 
-    for i = 1:3
+    for i = 1:3 %updates chasis with updated q
         x1(i) = x0(i) + q(i);
     end
 

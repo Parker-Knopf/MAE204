@@ -15,13 +15,13 @@ function q_k1 = odometry(u, phi0)
     v_x = v(2);
     v_y = v(3);
     
-    if omg == 0
+    if omg == 0 %checks value of omega and adjust q_b fo non zero cases
         q_b = [0, v_x, v_y]';
     else
         q_b = [omg, (v_x*sin(omg) + v_y*(cos(omg) - 1))/omg, (v_y*sin(omg) + v_x*(1 - cos(omg)))/omg]';
     end
     rot = [1 0 0;
            0 cos(phi0) -sin(phi0);
-           0 sin(phi0) cos(phi0)]; % Need to update w current phi
-    q_k1 = rot * q_b;
+           0 sin(phi0) cos(phi0)];
+    q_k1 = rot * q_b; %updated change in [phi, x, y]
 end
