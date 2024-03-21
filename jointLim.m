@@ -14,7 +14,7 @@ function [x1, sb] = jointLim(x0)
     qLim2 = [inf, pi/2, 5*pi/6, 5*pi/6, inf]; % Upper Limits for arm joint angles
     
     sb = false(1, length(q));
-    for i = 1:length(q) %checks joint angles with limits and replaces valuesoutside limits
+    for i = 1:length(q) %checks joint angles with limits and replaces values outside limits
         [q(i), sb(i)] = bound(q(i), qLim1(i), qLim2(i));
     end
     

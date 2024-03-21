@@ -11,7 +11,7 @@ T_sc_i = [1 0 0 1;% initial cube configuration in s frame
           0 0 1 0;
           0 0 0 1];
 
-T_sc_f = [0 1 0 1;%final cube config in s frame
+T_sc_f = [0 1 0 1; %final cube config in s frame
           -1 0 0 -1;
           0 0 1 0;
           0 0 0 1];

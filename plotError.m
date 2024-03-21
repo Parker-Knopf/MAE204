@@ -15,17 +15,19 @@ function plotError(varargin)
         return
     end
 
+    t = linspace(0,15,length(data));
+
     figure(1)
     hold on
-    plot(data(:,1))
-    plot(data(:,2))
-    plot(data(:,3))
-    plot(data(:,4))
-    plot(data(:,5))
-    plot(data(:,6))
+    plot(t,data(:,1))
+    plot(t,data(:,2))
+    plot(t,data(:,3))
+    plot(t,data(:,4))
+    plot(t,data(:,5))
+    plot(t,data(:,6))
     legend('wx' , 'wy', 'wz', 'vx', 'vy', 'vz')
     title("Trajectory Twist Errors")
-    xlabel("time")
+    xlabel("time (seconds)")
     ylabel("Twist Error Mag")
 
     saveas(gcf, "Error.png");
